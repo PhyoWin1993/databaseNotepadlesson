@@ -40,26 +40,31 @@ class NoDoItem extends StatelessWidget {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // First col
-          Text(_itemName,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16.5,
-              )),
+          new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // First col
+              new Text(_itemName,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.5,
+                  )),
 
-          //Second col
+              //Second col
 
-          new Container(
-            margin: const EdgeInsets.only(top: 5.0),
-            child: new Text(
-              "Created on :$_dateCreate",
-              style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 13.4,
-                  fontStyle: FontStyle.italic),
-            ),
-          )
+              new Container(
+                margin: const EdgeInsets.only(top: 5.0),
+                child: new Text(
+                  "Created on :$_dateCreate",
+                  style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 13.4,
+                      fontStyle: FontStyle.italic),
+                ),
+              )
+            ],
+          ),
         ],
       ),
     );

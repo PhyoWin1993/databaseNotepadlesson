@@ -38,7 +38,7 @@ class _NotoDoScreenState extends State<NotoDoScreen> {
                   return new Card(
                     color: Colors.white10,
                     child: new ListTile(
-                      title: _itemList[index],
+                      title: _itemList[index], // called from Widget result
                       onLongPress: () => debugPrint("hells"),
                       trailing: new Listener(
                         key: new Key(_itemList[index].itemname),
@@ -47,7 +47,7 @@ class _NotoDoScreenState extends State<NotoDoScreen> {
                           color: Colors.redAccent,
                         ),
                         onPointerDown: (pointerEvent) =>
-                            debugPrint("pointer erev"),
+                            _deleteNoDo(_itemList[index].id, index),
                       ),
                     ),
                   );
@@ -91,6 +91,7 @@ class _NotoDoScreenState extends State<NotoDoScreen> {
               if (_firstFieldctrl.text.isNotEmpty) {
                 _handleSubmit(_firstFieldctrl.text);
                 _firstFieldctrl.clear();
+                Navigator.pop(context);
               } else {
                 print("Nothing to Do");
               }
@@ -131,8 +132,20 @@ class _NotoDoScreenState extends State<NotoDoScreen> {
   _readNoDoItem() async {
     List ls = await db.getAlldata();
     ls.forEach((item) {
-      NoDoItem ite = new NoDoItem.map(item);
-      print("Data is ==> ${ite.itemname}");
+      // NoDoItem ite = new NoDoItem.map(item);
+
+      setState(() {
+        _itemList.add(NoDoItem.map(item));
+      });
+      // print("Data is ==> ${ite.itemname}");
+    });
+  }
+
+  _deleteNoDo(int id, int index) async {
+    debugPrint("Delete Item");
+    await db.deleteData(id);
+    setState(() {
+      _itemList.removeAt(index);
     });
   }
 }
